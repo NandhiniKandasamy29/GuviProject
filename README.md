@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 DevOps Practice Project – Dist Directory
 
 This repository contains the production-ready build files (dist folder) for DevOps practice and deployment exercises.
@@ -89,3 +90,7 @@ No dependencies are required
 No build process is required
 
 No package.json is needed
+=======
+# GuviProject
+Guvi DevOps projects
+>>>>>>> b7c57e82cf18df8594da2d9eba9f44a9e0845654
