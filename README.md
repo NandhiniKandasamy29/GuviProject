@@ -45,6 +45,19 @@ It includes code integration, automated build, containerization, and deployment.
 ```bash
 git clone https://github.com/NandhiniKandasamy29/GuviProject
 cd <GuviProject>
+docker build -t app .
+docker run -p 3000:3000 app
+
+**Kubernetes**
+    kubectl apply -f deployment.yaml
+    kubectl apply -f service.yaml
+
+**External-Ip**
+    a675ab45bbc2b495bbf5b13d1f7b6fc6-1624662063.ap-south-1.elb.amazonaws.com
+
+**Application URL**
+    http://a675ab45bbc2b495bbf5b13d1f7b6fc6-1624662063.ap-south-1.elb.amazonaws.com/
+
 ---
 
 # GuviProject
