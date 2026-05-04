@@ -1,16 +1,31 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_DEFAULT_REGION: ap-south-1
+    IMAGE_REPO_NAME: mindtrack-repo
+    IMAGE_TAG: latest
+
 phases:
   install:
-    commands:
-      - echo Installing dependencies...
+    runtime-versions:
+      docker: 20
+
   pre_build:
     commands:
-      - echo Pre-build phase started
+      - echo Logging in to Amazon ECR...
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - REPOSITORY_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
+
   build:
     commands:
       - echo Build started on `date`
-      - echo Running build process...
+      - docker build -t $IMAGE_REPO_NAME .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
+
   post_build:
     commands:
+      - echo Pushing Docker image to ECR...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Build completed on `date`
