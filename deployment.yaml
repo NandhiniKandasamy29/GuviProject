@@ -13,7 +13,7 @@ spec:
         app: brain-app
     spec:
       containers:
-      - name: brain-app
-        image: 634747715945.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+      - name: mindtrack
+        image: 634747715945.dkr.ecr.ap-south-1.amazonaws.com/mindtrack-repo:latest
         ports:
         - containerPort: 80
