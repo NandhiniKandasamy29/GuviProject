@@ -45,7 +45,7 @@ Brain-Tasks-App/
 ### Clone Repository
 
 ```
-git clone https://github.com/<your-username>/Brain-Tasks-App.git
+git clone https://github.com/NandhiniKandasamy29/Brain-Tasks-App.git
 cd Brain-Tasks-App
 ```
 
@@ -79,7 +79,7 @@ kubectl get nodes
 Update image in `deployment.yaml`:
 
 ```
-image: <account-id>.dkr.ecr.ap-south-1.amazonaws.com/mindtrack-repo:latest
+image: 634747715945.dkr.ecr.ap-south-1.amazonaws.com/mindtrack-repo:latest
 ```
 
 Deploy:
