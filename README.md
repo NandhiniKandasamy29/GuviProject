@@ -1,66 +1,152 @@
-<<<<<<< HEAD
+#  Brain Tasks App – DevOps CI/CD Project
 
-# DevOps CI/CD Project
+##  Project Overview
 
-## Project Overview
-This project demonstrates a complete DevOps pipeline using modern tools and practices.  
-It includes code integration, automated build, containerization, and deployment.
+This project demonstrates a complete **DevOps CI/CD pipeline** for deploying a containerized web application using AWS services.
 
----
-
-## Tech Stack
-- AWS EC2
-- Jenkins
-- GitHub
-- Docker
-- Kubernetes
-- Nginx (for web server)
+The application is built, containerized using Docker, pushed to Amazon ECR, and deployed on Kubernetes using Amazon EKS. CI/CD automation is implemented using AWS CodePipeline and CodeBuild.
 
 ---
 
-## Architecture
-1. Developer pushes code to GitHub
-2. Jenkins detects changes (webhook)
-3. Jenkins builds the project
-4. Docker image is created
-5. Image is pushed to Docker Hub
-6. Kubernetes deploys the application
+##  Architecture
+
+GitHub → CodePipeline → CodeBuild → Amazon ECR → Amazon EKS → LoadBalancer → Browser
 
 ---
 
-## Project Structure
+##  Tech Stack
 
-    project-root/
-    │── app/
-    │── Dockerfile
-    │── Jenkinsfile
-    │── deployment.yaml
-    │── service.yaml
-    │── README.md
+* AWS ECR (Container Registry)
+* AWS CodeBuild (Build & Docker Image Creation)
+* AWS CodePipeline (CI/CD Automation)
+* AWS EKS (Kubernetes Cluster)
+* Docker (Containerization)
+* Kubernetes (Deployment & Service)
+* CloudWatch (Logs & Monitoring)
+* GitHub (Source Code Management)
 
 ---
-## Setup Instructions
+
+##  Project Structure
+
+```
+Brain-Tasks-App/
+│── deployment.yaml
+│── service.yaml
+│── buildspec.yml
+│── Dockerfile
+│── README.md
+```
+
+---
+
+##  Setup Instructions
 
 ### Clone Repository
-```bash
-git clone https://github.com/NandhiniKandasamy29/GuviProject
-cd <GuviProject>
-docker build -t app .
-docker run -p 3000:3000 app
 
-**Kubernetes**
-    kubectl apply -f deployment.yaml
-    kubectl apply -f service.yaml
-
-**External-Ip**
-    a675ab45bbc2b495bbf5b13d1f7b6fc6-1624662063.ap-south-1.elb.amazonaws.com
-
-**Application URL**
-    http://a675ab45bbc2b495bbf5b13d1f7b6fc6-1624662063.ap-south-1.elb.amazonaws.com/
+```
+git clone https://github.com/<your-username>/Brain-Tasks-App.git
+cd Brain-Tasks-App
+```
 
 ---
 
-# GuviProject
-Guvi DevOps projects
->>>>>>> b7c57e82cf18df8594da2d9eba9f44a9e0845654
-test pipeline
+### Build & Push Docker Image (via CodeBuild)
+
+* Created ECR repository: `mindtrack-repo`
+* CodeBuild uses `buildspec.yml` to:
+
+  * Build Docker image
+  * Tag image
+  * Push to ECR
+
+---
+
+### EKS Cluster Setup
+
+* Cluster created using `eksctl`
+* Node group with 2 worker nodes
+* Verified using:
+
+```
+kubectl get nodes
+```
+
+---
+
+### Application Deployment
+
+Update image in `deployment.yaml`:
+
+```
+image: <account-id>.dkr.ecr.ap-south-1.amazonaws.com/mindtrack-repo:latest
+```
+
+Deploy:
+
+```
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+```
+
+---
+
+### Access Application
+
+```
+kubectl get svc
+```
+
+* Copy **EXTERNAL-IP: http://a58a25adce7704904995c9c3026972bf-284435617.ap-south-1.elb.amazonaws.com/**
+* Open in browser
+
+---
+
+## CI/CD Pipeline
+
+### Pipeline Flow:
+
+1. Code pushed to GitHub
+2. CodePipeline triggers automatically
+3. CodeBuild builds Docker image
+4. Image pushed to ECR
+
+---
+
+## CloudWatch Logs
+
+* Logs available in:
+
+```
+/aws/codebuild/mindtrack-build
+```
+
+* Used for monitoring build execution
+
+---
+
+## Screenshots (Attached in submission)
+
+* CodeBuild success
+* CodePipeline execution
+* EKS pods & services
+* Application running in browser
+* CloudWatch logs
+
+---
+
+## ✅ Key Achievements
+
+✔ Automated CI/CD pipeline
+✔ Docker image build and push to ECR
+✔ Kubernetes deployment on EKS
+✔ Application exposed via LoadBalancer
+✔ Monitoring using CloudWatch
+
+---
+
+## 👤 Author
+
+Nandhini Kandasamy
+
+---
